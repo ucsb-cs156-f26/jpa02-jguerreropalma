@@ -3,6 +3,7 @@ package edu.ucsb.cs156.spring.hello;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.beans.Transient;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
@@ -33,5 +34,22 @@ public class DeveloperTest {
     @Test
     public void getName_returns_correct_githubId(){
         assertEquals("jguerreropalma", Developer.getGithubId());
+    }
+
+    @Test
+    public void getTeam_returns_team_with_correct_name(){
+        Team t = Developer.getTeam();
+        assertEquals("f26-01", t.getName());
+    }
+
+    @Test
+    public void getTeam_returns_team_with_correct_members(){
+        Team t = Developer.getTeam();
+        assertTrue(t.getMembers().contains("Andrew"), "Team should contain Andrew");
+        assertTrue(t.getMembers().contains("Christian"), "Team should contain Christian");
+        assertTrue(t.getMembers().contains("Jonathan G."), "Team should contain Jonathan G.");
+        assertTrue(t.getMembers().contains("Owen"), "Team should contain Owen");
+        assertTrue(t.getMembers().contains("Yifan"), "Team should contain Yifan");
+        assertTrue(t.getMembers().contains("Nathan"), "Team should contain Nathan");
     }
 }
