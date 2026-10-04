@@ -2,6 +2,8 @@ package edu.ucsb.cs156.spring.hello;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.beans.Transient;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,5 +24,65 @@ public class TeamTest {
    
     // TODO: Add additional tests as needed to get to 100% jacoco line coverage, and
     // 100% mutation coverage (all mutants timed out or killed)
+
+    @Test
+    public void toString_returns_correct_string() {
+        assertEquals("Team(name=test-team, members=[])", team.toString());
+    }
+
+     @Test
+    public void same_object_returns_true() {
+        assertEquals(true, team.equals(team));
+        }
+
+    @Test
+    public void different_class_returns_false() {
+        assertEquals(false, team.equals(0));
+    }
+
+    @Test
+    public void same_name_same_members_return_true() {
+        Team team2 = new Team("test-team");
+        assertEquals(true, team.equals(team2));
+    }
+
+    @Test
+    public void same_name_different_members_returns_false() {   
+        Team team2 = new Team("test-team");
+        team2.addMember("Bob");
+        assertEquals(false, team.equals(team2));
+    }
+
+    @Test
+    public void different_name_same_members_returns_false() {   
+        Team team2 = new Team("different-test-team");
+        assertEquals(false, team.equals(team2));
+    }
+
+    @Test
+    public void different_name_different_members_returns_false() {   
+        Team team2 = new Team("different-test-team");
+        team2.addMember("Bob");
+        assertEquals(false, team.equals(team2));
+    }
+
+    @Test
+    public void same_teams_same_hash_code() {
+        Team t1 = new Team();
+        t1.setName("foo");
+        t1.addMember("bar");
+        Team t2 = new Team();
+        t2.setName("foo");
+        t2.addMember("bar");
+        assertEquals(t1.hashCode(), t2.hashCode());
+    }
+
+    @Test
+    public void hash_code_returns__expexted_value(){
+        Team t = new Team();
+        int result = t.hashCode();
+        int expectedResult = 1;
+        assertEquals(expectedResult, result);
+    }
 
 }
